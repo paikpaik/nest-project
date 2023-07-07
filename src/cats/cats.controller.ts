@@ -5,18 +5,22 @@ import {
   Param,
   ParseIntPipe,
   UseFilters,
+  UseInterceptors,
 } from '@nestjs/common';
-import { HttpException, Patch, Post, Put } from '@nestjs/common';
+import { Patch, Post, Put } from '@nestjs/common';
 import { CatsService } from './cats.service';
-import { HttpExceptionFilter } from 'src/http-exception.filter';
+import { HttpExceptionFilter } from 'src/common/exceptions/http-exception.filter';
+import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
 
 @Controller('cats')
+@UseInterceptors(SuccessInterceptor)
 @UseFilters(HttpExceptionFilter)
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
   @Get()
   getAllCat() {
+    console.log('hello controller');
     return 'get all cat api';
   }
 
