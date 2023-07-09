@@ -69,8 +69,6 @@ export class CatsController {
     @UploadedFiles() files: Array<Express.Multer.File>,
     @CurrentUser() cat: Cat,
   ) {
-    console.log(files);
-    // return { image: `http://localhost:3000/media/cats/${files[0].filename}` };
     return this.catsService.uploadImg(cat, files);
   }
 }
